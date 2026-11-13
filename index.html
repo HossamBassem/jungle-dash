@@ -253,7 +253,7 @@ function crash(){
 /* ---------- update ---------- */
 function update(dt){
   tNow += dt;
-  var target = state === 'play' ? Math.min(450 + dist / 40, 1000) : (state === 'ready' || state === 'shop' ? 220 : 0);
+  var target = state === 'play' ? Math.min(360 + dist / 140, 720) : (state === 'ready' || state === 'shop' ? 220 : 0);
   spd += (target - spd) * Math.min(1, dt * (state === 'over' ? 6 : 3));
   dist += spd * dt; runPh += spd * dt * 0.03;
 
@@ -282,7 +282,7 @@ function update(dt){
 
   if(state === 'play'){
     nextZ -= spd * dt;
-    while(nextZ < MAXZ){ spawnRow(nextZ + 0); nextZ += 300 + spd * 0.28 + Math.random() * 120; }
+    while(nextZ < MAXZ){ spawnRow(nextZ + 0); nextZ += 340 + spd * 0.4 + Math.random() * 120; }
     if(invul > 0) invul -= dt;
     if(magT > 0){
       magT -= dt;
