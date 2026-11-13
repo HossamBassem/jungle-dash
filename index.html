@@ -6,7 +6,7 @@
 <title>Jungle Dash</title>
 <style>
   html,body{margin:0;height:100%;overflow:hidden;background:#1b2a5c;touch-action:none;-webkit-user-select:none;user-select:none}
-  canvas{display:block;width:100vw;height:100vh}
+  canvas{display:block;position:fixed;left:0;top:0}
 </style>
 </head>
 <body>
@@ -28,6 +28,7 @@ function resize(){
   dpr = Math.min(window.devicePixelRatio || 1, 2);
   cw = Math.max(window.innerWidth, 1); ch = Math.max(window.innerHeight, 1);
   cv.width = Math.round(cw * dpr); cv.height = Math.round(ch * dpr);
+  if(cv.style){ cv.style.width = cw + 'px'; cv.style.height = ch + 'px'; }
   cx = cw / 2; hy = ch * 0.25; u = Math.min(cw / 400, ch / 600);
 }
 window.addEventListener('resize', resize); resize();
@@ -137,6 +138,10 @@ function btnAction(id){
   }
 }
 function hitBtn(cxp, cyp){
+  try{
+    var r = cv.getBoundingClientRect();
+    if(r && r.width > 0 && r.height > 0){ cxp = (cxp - r.left) * (cw / r.width); cyp = (cyp - r.top) * (ch / r.height); }
+  }catch(e){}
   var ox = (cw - 400 * u) / 2, oy = (ch - 600 * u) / 2, vx = (cxp - ox) / u, vy2 = (cyp - oy) / u;
   for(var i = btns.length - 1; i >= 0; i--){
     var b = btns[i];
